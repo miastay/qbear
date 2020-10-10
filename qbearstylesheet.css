@@ -1,0 +1,276 @@
+.root {
+    --main-background: white;
+    --my-xp: 20;
+    --my-level: 2;
+}
+*{
+    border: red 1px;
+}
+.logo {
+    display: inline-flexbox;
+    margin-left: 0.5vw;
+    margin-top: 0.25vw;
+    width: 8vw;
+    height: 3.5vw;
+    position: absolute;
+}
+body {
+    font-family: Jost;
+    overflow-x: hidden;
+}
+.menucontainer {
+    display: inline-flexbox;
+    position: absolute;
+    margin-left: 1.5vw;
+    margin-top: 10vw;
+    width: 13vw;
+    height: 25vw;
+    border: solid red 1px;
+}
+.menuitem {
+    width: 100%;
+    height: 5vw;
+    line-height: 5vw;
+    text-align: center;
+    color:rgba(0, 0, 0, 1);
+    font-size: 1.6vw;
+    cursor: pointer;
+    background: var(--main-background);
+    transition: background-color ease 1s;
+    border: solid blue 1px;
+}
+.menuitem:hover {
+    background: lightgray;
+}
+.menuitem:active {
+    transition: background-color ease 0.2s;
+    background: darkgray;
+}
+.feed {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.container {
+    display: inline-flexbox;
+    position: absolute;
+    width: 48vw;
+    height: 92vh;
+    transform: translateX(20vw) translateY(2vh);
+    /*border: solid red 1px;*/
+    border-radius: 1vw;
+    position: absolute;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.profilecontainer.small {
+    display: inline-flexbox;
+    position: absolute;
+    width: 26vw;
+    max-width: 26vw;
+    overflow-x: hidden;
+    height: 22vh;
+    transform: translateX(69.8vw) translateY(2vh);
+    /*border: solid red 1px;*/
+    border-radius: 1vw;
+    position: absolute;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+    padding: 1vw;
+}
+.feed.toolbar {
+    display: inline-block;
+    position: sticky; top: 0; z-index: 2;
+    width: 100%;
+    height: 60px;
+    background: rgba(248, 248, 248, 0.3);
+    text-align: center;
+    line-height: 60px;
+    margin-top: 0px;
+    box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+.backbutton {
+    width: 2vw;
+    height: 2vw;
+    margin-left: 1vw;
+}
+.feed.post {
+    display: inline-block;
+    width: 95%;
+    border: solid black 1px;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
+    border-radius: 1vw;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+}
+.feed.textpostcaption {
+    width: 85%;
+    font-size: 1.2vw;
+    text-align: left;
+    margin-left: 6vw;
+    margin-top: 1vw;
+    display: inline-block;
+    min-height: 4vw;
+}
+.feed.textpostreactionbar {
+    height: 2.5vw;
+    font-size: 1.2vw;
+    text-align: left;
+    margin-left: 1vw;
+    margin-top: 0.5vw;
+    display: inline-block;
+    width: 100%;
+    cursor: default;
+}
+.feed.textpostreactions {
+    height: 100%;
+    width: 20%;
+    font-size: 1.2vw;
+    text-align: left;
+    display: inline-block;
+}
+.feed.textpostcommentbar {
+    height: 100%;
+    width: 70%;
+    font-size: 1.2vw;
+    text-align: left;
+    display: inline-block;
+    
+}
+.commentfield {
+    background-color:rgb(235, 235, 235);
+    color:rgb(160, 160, 160);
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.commentfield:focus{
+    border:none;
+}
+.reaction {
+    width: 2vw; height: 2vw;
+}
+.feed.postuseravatar {
+    width: 4vw; height: 4vw;
+    margin-left: 1vw; margin-top: 1vw;
+    display: inline-block;
+    position: absolute;
+}
+.avatarimage {
+    width: 100%; height: 100%;
+}
+.feed.posttime {
+    height: 100%;
+    width: 20%;
+    font-size: 0.8vw;
+    color:rgb(160, 160, 160);
+    text-align: left;
+    display: inline-block;
+    margin-left: 60%;
+}
+.profile.displayname {
+    font-size: 1.6vw;
+    position: absolute;
+    margin-left: 1vw;
+    max-width: 80%;
+}
+.profile.username {
+    font-size: 1vw;
+    position: absolute;
+    margin-left: 1vw;
+    color: rgb(160, 160, 160);
+    margin-top: 2vw;
+    max-width: 8vw;
+}
+.profile.avatar {
+    width: 6vw; height: 6vw;
+    display: inline-block;
+}
+.profile.bio {
+    font-size: 1.3vw;
+    position: absolute;
+    display: inline-block;
+    margin-left: 1vw;
+    margin-top: 4vw;
+    max-width: 80%;
+    max-height: 6vw;
+    color: red;
+}
+.profile.leveltag {
+    font-size: 1vw;
+    position: absolute;
+    display: inline-block;
+    margin-left: 31.5vw;
+    background: rgb(160, 160, 160);
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    margin-top: 0vw;
+    width: 2.5vw;
+    cursor: default;
+}
+.profile.followbutton {
+    font-size: 1vw;
+    position: absolute;
+    display: inline-block;
+    margin-left: 35vw;
+    background: rgb(0, 0, 0);
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    margin-top: 0vw;
+    width: 4vw;
+    cursor: pointer;
+}
+.myleveltext {
+    display: inline-box;
+    color: darkgray;
+    width: 8vw;
+}
+progress[value]::-webkit-progress-bar {
+    transition: none;
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+progress[value]::-webkit-progress-value {
+    background-color: pink;
+    border-radius: 2px;
+}
+.myleveldiv {
+    padding: 1vw; 
+    height: 3vw; 
+    line-height: 3vw; 
+    font-size: 1.2vw; 
+    align-items: center; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; 
+    background-color: lightgray
+}
+.mylevelcontainer {
+    display: inline-flex;
+    background: lightgray;
+    border-radius: 8px;
+    height: 1.5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    width: 20vw;
+}
+.profile.tab {
+    float: left; 
+    display: block; 
+    width: 49%; 
+    height: 2.5vw; 
+    line-height: 2.5vw;
+    text-align: center;
+    cursor: pointer;
+}
+.profile.tabcontainer {
+    height: 2.5vw; 
+    line-height: 2vw; 
+    font-size: 1.3vw;
+}
+.username {
+    cursor: pointer;
+}
+
+

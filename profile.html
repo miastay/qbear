@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Jost"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/qbearstylesheet.css"/>
+
+<body onload="populate()">
+    <div class="logo"><img src="/qbear_logo.png" class="logo"></div>
+    <div class="menucontainer">
+        <div class="menuitem" onclick="window.open('/feed', '_self')">my feed</div>
+        <div class="menuitem" onclick="window.open('/explore', '_self')">explore</div>
+        <div class="menuitem" onclick="window.open('/groups', '_self')">groups</div>
+        <div class="menuitem" onclick="window.open('/profile', '_self')">profile</div>
+        <div class="menuitem" onclick="window.open('/options', '_self')">options</div>
+    </div>
+    <div id="container" class="container">
+        <div class="feed toolbar"><img src="/arrow.png" class="backbutton">Profile</div>
+        <div style="padding: 1vw; height: 10vw;">
+            <div class="profile avatar"><img src="/avatar.png" class="avatarimage"></div>
+            <b id="profile_displayname" class="profile displayname">.</b>
+            <span id="profile_username" class="profile username">.</span>
+            <div id="profile_leveltag" class="profile leveltag">lv 1</div><div class="profile followbutton">follow</div>
+            <div id="profile_bio" class="profile bio">.</div>
+        </div>
+        <div id="myinfo" class="myleveldiv">My Level: 1<progress class="mylevelcontainer" value=20 max=100></progress>20/100xp</div>
+        <div class="profile tabcontainer"><div class="profile tab">posts</div><div class="profile tab" style="float: right">groups</div></div>
+    </div>
+</body>
+
+<script>
+
+    var currentUser, data;
+
+    function populate() {
+        currentUser = getCookie('username');
+        getUserInfo(currentUser, function(response){
+            data = response;
+            console.log(data);
+            $("#profile_username")[0].innerText = '@' + response.username;
+            $("#profile_leveltag")[0].innerText = 'lv ' + response.level;
+            $("#profile_displayname")[0].innerText = response.username;
+            $("#profile_bio")[0].innerText = response.bio;
+        });
+    }
+    function getUserInfo(username, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                callback(JSON.parse(this.response));
+            }
+        };
+        xhttp.open("GET", "/userinfo?username=" + username, true);
+        xhttp.send();
+        return false;
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+
+
+</script>

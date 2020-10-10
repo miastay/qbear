@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Jost"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/qbearstylesheet.css"/>
+<body>
+    <div class="logo"><img src="/qbear_logo.png" class="logo"></div>
+    <div class="menucontainer">
+        <div class="menuitem" onclick="window.open('/feed', '_self')">my feed</div>
+        <div class="menuitem" onclick="window.open('/explore', '_self')">explore</div>
+        <div class="menuitem" onclick="window.open('/groups', '_self')">groups</div>
+        <div class="menuitem" onclick="window.open('/profile', '_self')">profile</div>
+        <div class="menuitem" onclick="window.open('/options', '_self')">options</div>
+    </div>
+    <div id="container" class="container">
+        <div class="feed toolbar"><img src="/arrow.png" class="backbutton">this is the toolbar.</div>
+
+        <script id="textpost blueprint" type="text/html">
+            <div class="feed post">
+                <div class="feed postuseravatar"><img src="/avatar.png" class="avatarimage"></div><div class="feed textpostcaption"><b id="username" class="username">@username</b>:&nbsp;<span id="caption">: caption contents will look like this in a <b>text post</b>. the formatting should be checked to make sure line breaks look right, and that the formatting of the font is correct.</span></div>
+                <div class="feed textpostreactionbar">
+                    <div class="feed textpostreactions">
+                        <img class="reaction" src="/love_unfilled.png">
+                        <img class="reaction" src="/comment.png">
+                        <img class="reaction" src="/send.png">
+                    </div><div id="time" class="feed posttime">Oct 2, 20:00</div>
+                </div>
+            </div>
+        </script>
+
+        <input type="button" onclick="createPost()">
+
+    </div>
+    <div class="profilecontainer small">
+        <div class="profile avatar"><img src="/avatar.png" class="avatarimage"></div>
+        <b id="profile_displayname" class="profile displayname">display name</b>
+        <span id="profile_username" class="profile username">@username</span>
+    </div>
+</body>
+
+<!--
+<div class="feed textpostcommentbar"><input class="commentfield" type="text" placeholder="type a comment..."></div>
+-->
+
+<script>
+
+    let username;
+
+    function createPostElement(json) {
+        var objs = json;
+        var div;
+        div = createElementFromHTML(document.getElementById('textpost blueprint').innerHTML);
+        div.setAttribute('id', objs.post_id);
+        document.getElementById('container').appendChild(div);
+        div.querySelector("#username").innerHTML = objs.username;
+        div.querySelector("#caption").innerText = objs.caption;
+        div.querySelector("#time").innerText = objs.time;
+    }
+    function getPost(postid) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                createPostElement(JSON.parse(this.response)[0]);
+            }
+        };
+        xhttp.open("GET", "/post?id=" + postid, true);
+        xhttp.send();
+        return false;
+    }
+    function getPosts() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                for(i = 0; i < this.response.length; i++) {
+                    createPostElement(JSON.parse(this.response)[i]);
+                }
+            }
+        };
+        xhttp.open("GET", "/posts", true);
+        xhttp.send();
+        return false;
+    }
+    function createElementFromHTML(htmlString) {
+        var div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+        return div.firstChild; 
+    }
+    function createPost() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                createPostElement(JSON.parse(this.response)[0]);
+            }
+        };
+        xhttp.open("POST", "/create?user="+username+"&type=text&caption=post&content_url=NULL", true);
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send();
+    }
+    function assignUserInfo() {
+        username = getCookie("username");
+        $("#profile_username")[0].innerText = '@' + username;
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    assignUserInfo();
+    getPosts();
+
+</script>
